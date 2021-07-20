@@ -7,11 +7,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-//import MapView, { Marker, ProviderPropType, PROVIDER_GOOGLE } from 'react-native-maps';
-import { Marker, ProviderPropType, PROVIDER_GOOGLE } from 'react-native-maps';
-import Geocoder from 'react-native-geocoding';
+import { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import MapView from "react-native-map-clustering";
-import { showLocation, Popup } from 'react-native-map-link'
 
 const { width, height } = Dimensions.get('window');
 
@@ -52,52 +49,6 @@ const Map5 = () => {
 
     const mapRef = useRef()
 
-    const getAddress = (e) => {
-
-        // mapRef.current
-        //     .addressForCoordinate({
-        //         // latitude: selectedLatitude,
-        //         // longitude: selectedLongitude,
-        //         latitude: 41.89,
-        //         longitude: 12.49,
-        //     })
-        //     .then((res) => console.log(res));
-
-
-
-        // Geocoder.from(41.89, 12.49)
-        //     .then(json => {
-        //         var addressComponent = json.results[0].address_components[0];
-        //         console.log(addressComponent);
-        //     })
-        //     .catch(error => console.warn(error));
-        // // setCoordMarker(e.nativeEvent.coordinate)
-        // console.log(e.nativeEvent.coordinate)
-
-        // this is need to payment in google cloud
-    }
-
-
-    const redirectToAnotherApp = () => {
-        setIsVisible(true)
-        // showLocation({
-        //     latitude: 38.8976763,
-        //     longitude: - 77.0387185,
-        //     // sourceLatitude: -8.0870631,  // optionally specify starting location for directions
-        //     // sourceLongitude: -34.8941619,  // not optional if sourceLatitude is specified
-        //     title: 'The White House',  // optional
-        //     googleForceLatLon: false,  // optionally force GoogleMaps to use the latlon for the query instead of the title
-        //     googlePlaceId: 'ChIJGVtI4by3t4kRr51d_Qm_x58',  // optionally specify the google-place-id
-        //     // alwaysIncludeGoogle: true, // optional, true will always add Google Maps to iOS and open in Safari, even if app is not installed (default: false)
-        //     // dialogTitle: 'This is the dialog Title', // optional (default: 'Open in Maps')
-        //     // dialogMessage: 'This is the amazing dialog Message', // optional (default: 'What app would you like to use?')
-        //     cancelText: 'This is the cancel button text', // optional (default: 'Cancel')
-        //     // appsWhiteList: ['google-maps'], // optionally you can set which apps to show (default: will show all supported apps installed on device)
-        //     // naverCallerName: 'com.example.myapp' // to link into Naver Map You should provide your appname which is the bundle ID in iOS and applicationId in android.
-        //     // appTitles: { 'google-maps': 'My custom Google Maps title' } // optionally you can override default app titles
-        //     // app: 'uber'  // optionally specify specific app to use
-        // })
-    }
 
     return (
         <View style={styles.container}>
