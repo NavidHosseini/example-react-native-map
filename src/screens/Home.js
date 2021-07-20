@@ -11,12 +11,12 @@ const Home = ({ navigation }) => {
             </View>
             <View style={{ marginVertical: 20 }}>
 
-                <Button title='Map 2' onPress={() => navigation.navigate('Map2')} />
+                <Button title='tile map' onPress={() => navigation.navigate('Map2')} />
             </View>
 
             <View style={{ marginVertical: 20 }}>
 
-                <Button title='Map 3' onPress={() => navigation.navigate('Map3')} />
+                <Button title='map polyline area' onPress={() => navigation.navigate('Map3')} />
             </View>
 
         </View >

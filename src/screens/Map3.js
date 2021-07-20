@@ -1,53 +1,134 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import MapView, { PROVIDER_GOOGLE, UrlTile } from 'react-native-maps';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity } from 'react-native';
 
-const Home = () => {
+import MapView, { Polyline, ProviderPropType, PROVIDER_GOOGLE } from 'react-native-maps';
+
+const Map3 = () => {
+    const { width, height } = Dimensions.get('window');
+
+    const ASPECT_RATIO = width / height;
+    const LATITUDE = 37.78825;
+    const LONGITUDE = -122.4324;
+    const LATITUDE_DELTA = 0.0922;
+    const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+    let id = 0;
+
+    const [polylines, setPolylines] = useState([])
+    const [editing, setEditing] = useState(null)
+    const [region, setRegion] = useState({
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+    })
+
+    const finish = () => {
+
+        const editingCompleteLine = {
+            ...editing,
+            "coordinates": [
+                ...editing.coordinates,
+                editing.coordinates[0]
+            ]
+        }
+        //   console.log(obj)
+        setPolylines([...polylines, editingCompleteLine])
+        setEditing(null)
+        // console.log(editing.coordinates[0])
+    }
+
+    const onPanDrag = (e) => {
+        if (!editing) {
+            setEditing({ id: id++, coordinates: [e.nativeEvent.coordinate], })
+        } else {
+            setEditing({ ...editing, coordinates: [...editing.coordinates, e.nativeEvent.coordinate] })
+        }
+    }
+
     return (
         <View style={styles.container}>
             <MapView
-                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                provider={PROVIDER_GOOGLE}
                 style={styles.map}
-                region={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
-                    latitudeDelta: 0.015,
-                    longitudeDelta: 0.0121,
-                }}
+                initialRegion={region}
+                scrollEnabled={false}
+                onPanDrag={e => onPanDrag(e)}
             >
 
-                <UrlTile
-                    /**
-                     * The url template of the tile server. The patterns {x} {y} {z} will be replaced at runtime
-                     * For example, http://c.tile.openstreetmap.org/{z}/{x}/{y}.png
-                     */
-                    urlTemplate={'https://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga'}
-                    //     urlTemplate={'http://c.tile.openstreetmap.org/{z}/{x}/{y}.png'}
-                    /**
-                     * The maximum zoom level for this tile overlay. Corresponds to the maximumZ setting in
-                     * MKTileOverlay. iOS only.
-                     */
-                    maximumZ={19}
-                    /**
-                     * flipY allows tiles with inverted y coordinates (origin at bottom left of map)
-                     * to be used. Its default value is false.
-                     */
-                    flipY={false}
-                />
+                {polylines.map(polyline => (
+                    <Polyline
+                        key={polyline.id}
+                        coordinates={polyline.coordinates}
+                        strokeColor="#000"
+                        fillColor="rgba(255,0,0,0.5)"
+                        strokeWidth={1}
+                        lineCap={'round'}
+                        lineJoin='round'
+                        miterLimit={10}
+
+                    />
+                ))}
+
+
+
+                {editing && (
+                    <Polyline
+                        key="editingPolyline"
+                        coordinates={editing.coordinates}
+                        strokeColor="#F00"
+                        fillColor="rgba(255,0,0,0.5)"
+                        strokeWidth={1}
+                        lineCap={'round'}
+                        lineJoin='round'
+                        miterLimit={10}
+                    />
+                )}
             </MapView>
+            <View style={styles.buttonContainer}>
+                {editing && (
+                    <TouchableOpacity
+                        onPress={() => finish()}
+                        style={[styles.bubble, styles.button]}
+                    >
+                        <Text>Finish</Text>
+                    </TouchableOpacity>
+                )}
+            </View>
         </View>
     )
 }
 
-export default Home
+
+export default Map3
 
 const styles = StyleSheet.create({
     container: {
-        width: '100%',
-        height: '100%'
+        ...StyleSheet.absoluteFillObject,
+        justifyContent: 'flex-end',
+        alignItems: 'center',
     },
     map: {
-        width: '100%',
-        height: '100%'
-    }
-})
+        ...StyleSheet.absoluteFillObject,
+    },
+    bubble: {
+        backgroundColor: 'rgba(255,255,255,0.7)',
+        paddingHorizontal: 18,
+        paddingVertical: 12,
+        borderRadius: 20,
+    },
+    latlng: {
+        width: 200,
+        alignItems: 'stretch',
+    },
+    button: {
+        width: 80,
+        paddingHorizontal: 12,
+        alignItems: 'center',
+        marginHorizontal: 10,
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginVertical: 20,
+        backgroundColor: 'transparent',
+    },
+});

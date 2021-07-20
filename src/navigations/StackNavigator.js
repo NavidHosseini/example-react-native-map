@@ -18,7 +18,7 @@ const StackNavigator = () => {
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="Map1" options={{ title: 'user location' }} component={Map1} />
             <Stack.Screen name="Map2" options={{ title: 'tile map' }} component={Map2} />
-            <Stack.Screen name="Map3" options={{ title: '' }} component={Map3} />
+            <Stack.Screen name="Map3" options={{ title: 'map polyline area' }} component={Map3} />
         </Stack.Navigator>
     )
 }

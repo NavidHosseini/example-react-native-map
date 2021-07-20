@@ -1,132 +1,54 @@
-import React, { useState, useCallback, useRef } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
-import MapView, {
-    ILocationProps,
-    IDrawResult,
-    TouchPoint,
-    Marker
-} from 'react-native-maps-draw';
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import MapView, { PROVIDER_GOOGLE, UrlTile } from 'react-native-maps';
 
-
-const Map1 = () => {
-    const mapRef = useRef(null);
-
-    const initialPolygon = useRef({
-        polygons: [],
-        distance: 0,
-        lastLatLng: undefined,
-        initialLatLng: undefined,
-        centerLatLng: undefined,
-    });
-
-    const [modePolygon, setPolygonCreated] = useState(false);
-
-    const [isActiveDraw, setDrawMode] = useState(false);
-    const [isReady, setIsReady] = useState(false);
-    const [points, setPoints] = useState([]);
-
-    const [polygon, setPolygon] = useState(initialPolygon.current);
-
-    const handleMapReady = useCallback(() => mapRef.current && setIsReady(true), []);
-
-    const handleRemovePolygon = useCallback(() => {
-        setPolygon(initialPolygon.current);
-        setPolygonCreated(false);
-    }, []);
-
-    const handleClear = useCallback(() => {
-        setPolygon(initialPolygon.current);
-        setPolygonCreated(false);
-        setPoints([]);
-    }, []);
-
-    const handleIsDraw = useCallback(() => {
-        if (!mapRef.current) return;
-        setDrawMode((prevMode) => !prevMode);
-    }, [handleClear, isActiveDraw]);
-
-    const handleCanvasEndDraw = useCallback((locations) => {
-        zoomCenterPolygon(locations.centerLatLng).then(() => {
-            setPolygon(locations);
-            setPolygonCreated(true);
-        });
-        setDrawMode((prevMode) => !prevMode);
-    }, []);
-
-    const zoomCenterPolygon = async (center) => {
-        if (!mapRef.current) return;
-        const camera = await mapRef.current.getCamera();
-        if (Platform.OS === 'ios') {
-            mapRef.current.animateCamera({
-                center: center,
-            });
-        }
-        if (Platform.OS === 'android') { }
-    };
-
-
-    const hasMarkerClose = polygon.centerLatLng && (
-        <Marker onPress={handleRemovePolygon} coordinate={polygon.centerLatLng}>
-            <MarkerLocation />
-        </Marker>
-    );
-
-    const handlePolygon = useCallback(
-        (item, index) => <AnimatedPolygon key={index} coordinates={polygon.polygons} />,
-        [polygon.polygons]
-    );
-
-
+const Map2 = () => {
     return (
         <View style={styles.container}>
             <MapView
-                ref={mapRef}
-                style={{ flex: 1 }}
-                points={points}
-                widthLine={3}
-                onEndDraw={handleCanvasEndDraw}
-                isDrawMode={isActiveDraw}
-                onMapReady={handleMapReady}
-                onStartDraw={handleClear}
-                createdPolygon={modePolygon}
-                onChangePoints={setPoints}
-                backgroundCanvas={'rgba(0, 0, 0, 0.0)'}
+                provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+                style={styles.map}
+                region={{
+                    latitude: 37.78825,
+                    longitude: -122.4324,
+                    latitudeDelta: 0.015,
+                    longitudeDelta: 0.0121,
+                }}
+            //   onPanDrag={(res) => console.log(res)}
             >
-                {isReady && modePolygon && polygon.polygons && polygon.polygons.length > 0 && (
-                    <>
-                        {hasMarkerClose}
-                        {polygon.polygons.map(handlePolygon)}
-                    </>
-                )}
-            </MapView>
 
-            <TouchableOpacity style={styles.button} onPress={handleIsDraw}>
-                {isActiveDraw ? (
-                    <Text style={styles.title}>ON</Text>
-                ) : (
-                    <Text style={styles.title}>OFF</Text>
-                )}
-            </TouchableOpacity>
+                <UrlTile
+                    /**
+                     * The url template of the tile server. The patterns {x} {y} {z} will be replaced at runtime
+                     * For example, http://c.tile.openstreetmap.org/{z}/{x}/{y}.png
+                     */
+                    urlTemplate={'https://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}&s=Ga'}
+                    //     urlTemplate={'http://c.tile.openstreetmap.org/{z}/{x}/{y}.png'}
+                    /**
+                     * The maximum zoom level for this tile overlay. Corresponds to the maximumZ setting in
+                     * MKTileOverlay. iOS only.
+                     */
+                    maximumZ={19}
+                    /**
+                     * flipY allows tiles with inverted y coordinates (origin at bottom left of map)
+                     * to be used. Its default value is false.
+                     */
+                    flipY={false}
+                />
+            </MapView>
         </View>
-    );
+    )
 }
-export default Map1
+
+export default Map2
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: '100%',
+        height: '100%'
     },
-    button: {
-        top: '10%',
-        right: '10%',
-        position: 'absolute',
-        backgroundColor: 'tomato',
-        padding: 16,
-        zIndex: 4,
-        borderRadius: 18,
-    },
-    title: {
-        color: '#FFFFFF',
-        fontSize: 12,
-    },
-});
-
+    map: {
+        width: '100%',
+        height: '100%'
+    }
+})
