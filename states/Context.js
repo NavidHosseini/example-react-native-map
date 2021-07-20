@@ -9,18 +9,16 @@ export const Provider = ({ children }) => {
     useEffect(() => {
         //  Geocoder.init("***")
         SplashScreen.hide()
+        const granted = PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+        );
+        granted === PermissionsAndroid.RESULTS.GRANTED;
     }, [])
-    const granted = PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-    );
-    granted === PermissionsAndroid.RESULTS.GRANTED;
-    const a = 0
+    const example = 0
 
     return (
         <Context.Provider
-            value={{
-                a
-            }}>
+            value={{ example }}>
             {children}
         </Context.Provider>
     )
