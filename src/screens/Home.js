@@ -7,7 +7,7 @@ const Home = ({ navigation }) => {
 
             <View style={{ marginVertical: 20 }}>
 
-                <Button title='Map 1' onPress={() => navigation.navigate('Map1')} />
+                <Button title='user location' onPress={() => navigation.navigate('Map1')} />
             </View>
             <View style={{ marginVertical: 20 }}>
 
@@ -17,6 +17,18 @@ const Home = ({ navigation }) => {
             <View style={{ marginVertical: 20 }}>
 
                 <Button title='map polyline area' onPress={() => navigation.navigate('Map3')} />
+            </View>
+            <View style={{ marginVertical: 20 }}>
+
+                <Button title='marker in center' onPress={() => navigation.navigate('Map4')} />
+            </View>
+            <View style={{ marginVertical: 20 }}>
+
+                <Button title='set marker and dragble' onPress={() => navigation.navigate('Map5')} />
+            </View>
+            <View style={{ marginVertical: 20 }}>
+
+                <Button title='map cluster' onPress={() => navigation.navigate('Map6')} />
             </View>
 
         </View >
