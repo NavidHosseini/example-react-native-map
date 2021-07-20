@@ -28,7 +28,7 @@ function randomColor() {
         .padStart(6, 0)}`;
 }
 
-const Map5 = () => {
+const Map8 = () => {
 
     const [region, setRegion] = useState({
         latitude: LATITUDE,
@@ -52,34 +52,20 @@ const Map5 = () => {
 
     const mapRef = useRef()
 
-    const getAddress = (e) => {
-
-        // mapRef.current
-        //     .addressForCoordinate({
-        //         // latitude: selectedLatitude,
-        //         // longitude: selectedLongitude,
-        //         latitude: 41.89,
-        //         longitude: 12.49,
-        //     })
-        //     .then((res) => console.log(res));
 
 
+    const redirectToAnotherApp = (e) => {
+        console.log(e.nativeEvent.coordinate)
+        setCoordMarker(e.nativeEvent.coordinate)
+        setTimeout(() => {
 
-        // Geocoder.from(41.89, 12.49)
-        //     .then(json => {
-        //         var addressComponent = json.results[0].address_components[0];
-        //         console.log(addressComponent);
-        //     })
-        //     .catch(error => console.warn(error));
-        // // setCoordMarker(e.nativeEvent.coordinate)
-        // console.log(e.nativeEvent.coordinate)
-
-        // this is need to payment in google cloud
-    }
+            setIsVisible(true)
+        }, 200);
 
 
-    const redirectToAnotherApp = () => {
-        setIsVisible(true)
+
+
+
         // showLocation({
         //     latitude: 38.8976763,
         //     longitude: - 77.0387185,
@@ -114,9 +100,7 @@ const Map5 = () => {
                         coordinate={marker.coordinate}
                         pinColor={marker.color}
                         draggable={true}
-                        onPress={(e) => alert(`lat: ${e.nativeEvent.coordinate.latitude} , lon: ${e.nativeEvent.coordinate.longitude}`)
-
-                        }
+                        onPress={(e) => redirectToAnotherApp(e)}
                     />
                 ))}
             </MapView>
@@ -128,7 +112,21 @@ const Map5 = () => {
                     <Text>Tap to create a marker of random color</Text>
                 </TouchableOpacity>
             </View>
-
+            <Popup
+                isVisible={isVisible}
+                onCancelPressed={() => setIsVisible(false)}
+                onAppPressed={() => setIsVisible(false)}
+                onBackButtonPressed={() => setIsVisible(false)}
+                modalProps={{ // you can put all react-native-modal props inside.
+                    animationIn: 'slideInUp'
+                }}
+                appsWhiteList={[ /* Array of apps (apple-maps, google-maps, etc...) that you want
+    to show in the popup, if is undefined or an empty array it will show all supported apps installed on device.*/ ]}
+                appTitles={{ /* Optional: you can override app titles. */ }}
+                //  options={{ /* See `showLocation` method above, this accepts the same options. */ }}
+                options={{ latitude: coordMarker.latitude, longitude: coordMarker.longitude, }}
+                style={{ /* Optional: you can override default style by passing your values. */ }}
+            />
         </View>
     );
 }
@@ -168,4 +166,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Map5;
+export default Map8;

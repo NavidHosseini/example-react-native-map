@@ -11,8 +11,8 @@ const Map4 = () => {
     const [region, setRegion] = useState({
         latitudeDelta,
         longitudeDelta,
-        latitude: 25.1948475,
-        longitude: 55.2682899
+        latitude: 30.913513256192235,
+        longitude: 52.69852861762047,
     })
 
 

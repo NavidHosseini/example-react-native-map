@@ -9,8 +9,8 @@ const Map2 = () => {
                 provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                 style={styles.map}
                 region={{
-                    latitude: 37.78825,
-                    longitude: -122.4324,
+                    latitude: 30.913513256192235,
+                    longitude: 52.69852861762047,
                     latitudeDelta: 0.015,
                     longitudeDelta: 0.0121,
                 }}

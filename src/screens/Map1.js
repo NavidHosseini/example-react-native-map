@@ -7,8 +7,8 @@ const Map1 = () => {
     const [region, setRegion] = useState(null)
 
     const INITIAL_REGION = {
-        latitude: 52.5,
-        longitude: 19.2,
+        latitude: 30.913513256192235,
+        longitude: 52.69852861762047,
         latitudeDelta: 8.5,
         longitudeDelta: 8.5,
     };

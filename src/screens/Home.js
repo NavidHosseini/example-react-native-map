@@ -31,6 +31,16 @@ const Home = ({ navigation }) => {
                 <Button title='map custom cluster' onPress={() => navigation.navigate('Map6')} />
             </View>
 
+            <View style={{ marginVertical: 20 }}>
+
+                <Button title='map get address' onPress={() => navigation.navigate('Map7')} />
+            </View>
+
+            <View style={{ marginVertical: 20 }}>
+
+                <Button title='map link to another applications with custom alert' onPress={() => navigation.navigate('Map8')} />
+            </View>
+
         </View >
     )
 }

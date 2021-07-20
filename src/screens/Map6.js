@@ -36,8 +36,8 @@ import MapView from "react-native-map-clustering";
 import { Marker } from "react-native-maps";
 
 const INITIAL_REGION = {
-    latitude: 52.5,
-    longitude: 19.2,
+    latitude: 30.913513256192235,
+    longitude: 52.69852861762047,
     latitudeDelta: 8,
     longitudeDelta: 8
 };

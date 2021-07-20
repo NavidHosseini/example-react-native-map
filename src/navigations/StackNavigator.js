@@ -7,6 +7,9 @@ import Map3 from '../screens/Map3'
 import Map4 from '../screens/Map4'
 import Map5 from '../screens/Map5'
 import Map6 from '../screens/Map6'
+import Map7 from '../screens/Map7'
+import Map8 from '../screens/Map8'
+import Map9 from '../screens/Map9'
 
 
 
@@ -25,6 +28,8 @@ const StackNavigator = () => {
             <Stack.Screen name="Map4" options={{ title: 'marker in center' }} component={Map4} />
             <Stack.Screen name="Map5" options={{ title: 'set marker and dragble' }} component={Map5} />
             <Stack.Screen name="Map6" options={{ title: 'map custom cluster' }} component={Map6} />
+            <Stack.Screen name="Map7" options={{ title: 'map get address' }} component={Map7} />
+            <Stack.Screen name="Map8" options={{ title: 'map link to another applications' }} component={Map8} />
         </Stack.Navigator>
     )
 }
