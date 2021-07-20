@@ -4,7 +4,6 @@ import { PermissionsAndroid, StyleSheet, Text, View } from 'react-native'
 import MapView, { PROVIDER_GOOGLE, UrlTile } from 'react-native-maps';
 
 const Map1 = () => {
-    const [region, setRegion] = useState(null)
 
     const INITIAL_REGION = {
         latitude: 30.913513256192235,
@@ -15,12 +14,6 @@ const Map1 = () => {
     const mapRef = useRef();
     useEffect(() => {
         Geolocation.getCurrentPosition(position => {
-            // setRegion({
-            //     latitude: position.coords.latitude,
-            //     longitude: position.coords.longitude,
-            //     latitudeDelta: 0.015,
-            //     longitudeDelta: 0.0121,
-            // })
             setTimeout(() => {
                 mapRef.current.animateToRegion({
                     latitude: position.coords.latitude,

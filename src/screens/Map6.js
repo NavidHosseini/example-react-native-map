@@ -33,7 +33,7 @@
 import React from "react";
 import { View, Text } from "react-native";
 import MapView from "react-native-map-clustering";
-import { Marker } from "react-native-maps";
+import { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
 const INITIAL_REGION = {
     latitude: 30.913513256192235,
@@ -45,6 +45,7 @@ const INITIAL_REGION = {
 const Map6 = () => (
     <MapView
         initialRegion={INITIAL_REGION}
+        provider={PROVIDER_GOOGLE}
         style={{ flex: 1 }}
         renderCluster={cluster => {
             const { id, geometry, onPress, properties } = cluster;
