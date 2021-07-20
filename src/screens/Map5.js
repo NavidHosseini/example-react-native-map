@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     StyleSheet,
     View,
@@ -7,8 +7,11 @@ import {
     TouchableOpacity,
 } from 'react-native';
 
-import MapView, { Marker, ProviderPropType, PROVIDER_GOOGLE } from 'react-native-maps';
+//import MapView, { Marker, ProviderPropType, PROVIDER_GOOGLE } from 'react-native-maps';
+import { Marker, ProviderPropType, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
+import MapView from "react-native-map-clustering";
+
 
 const { width, height } = Dimensions.get('window');
 
@@ -46,7 +49,20 @@ const Map5 = () => {
         ])
     }
 
+    const mapRef = useRef()
+
     const getAddress = (e) => {
+        // mapRef.current
+        //     .addressForCoordinate({
+        //         // latitude: selectedLatitude,
+        //         // longitude: selectedLongitude,
+        //         latitude: 41.89,
+        //         longitude: 12.49,
+        //     })
+        //     .then((res) => console.log(res));
+
+
+
         // Geocoder.from(41.89, 12.49)
         //     .then(json => {
         //         var addressComponent = json.results[0].address_components[0];
@@ -62,6 +78,7 @@ const Map5 = () => {
     return (
         <View style={styles.container}>
             <MapView
+                ref={mapRef}
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
                 initialRegion={region}

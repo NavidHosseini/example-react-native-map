@@ -28,7 +28,7 @@ const Home = ({ navigation }) => {
             </View>
             <View style={{ marginVertical: 20 }}>
 
-                <Button title='map cluster' onPress={() => navigation.navigate('Map6')} />
+                <Button title='map custom cluster' onPress={() => navigation.navigate('Map6')} />
             </View>
 
         </View >

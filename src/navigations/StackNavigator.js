@@ -24,7 +24,7 @@ const StackNavigator = () => {
             <Stack.Screen name="Map3" options={{ title: 'map polyline area' }} component={Map3} />
             <Stack.Screen name="Map4" options={{ title: 'marker in center' }} component={Map4} />
             <Stack.Screen name="Map5" options={{ title: 'set marker and dragble' }} component={Map5} />
-            <Stack.Screen name="Map6" options={{ title: 'map cluster' }} component={Map6} />
+            <Stack.Screen name="Map6" options={{ title: 'map custom cluster' }} component={Map6} />
         </Stack.Navigator>
     )
 }
